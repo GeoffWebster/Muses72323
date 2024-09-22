@@ -1,22 +1,18 @@
 # Muses 72320
 
-Arduino library for communicating with the Muses 72320 audio chip.
-The data sheets can be found [here](http://www.njr.com/semicon/PDF/MUSES72320_E.pdf) (pdf).
-
-## Download
-
-Download the latest release over at the [Releases](https://github.com/qhris/Muses72320/releases) page.
+Arduino library for communicating with the Muses 72323 audio chip.
+The data sheets can be found [here](https://www.nisshinbo-microdevices.co.jp/en/pdf/datasheet/MUSES72323_E.pdf) (pdf).
 
 ## Example
 
 ```c++
-#include <Muses72320.h>
+#include <Muses72323.h>
 
 // The address wired into the muses chip (usually 0).
 static const byte MUSES_ADDRESS = 0;
 
-static Muses72320 Muses(MUSES_ADDRESS);
-static Muses72320::volume_t CurrentVolume = -20;
+static Muses72323 Muses(MUSES_ADDRESS);
+static Muses72323::volume_t CurrentVolume = -20;
 
 void setup()
 {
@@ -29,20 +25,17 @@ void setup()
   // These are the default states and could be removed...
   Muses.setZeroCrossing(true);     // Enable/Disable zero crossing.
   Muses.setAttenuationLink(false); // Left channel controls both L/R gain channel.
-  Muses.setGainLink(false);        // Left channel controls both L/R attenuation channel.
 }
 
 void loop()
 {
   CurrentVolume -= 1;
-  if (CurrentVolume < -223)
+  if (CurrentVolume < -447)
   {
     CurrentVolume = 0;
   }
 
-  Muses.setVolume(CurrentVolume);
-  // Equivalent to 'Muses.setVolume(CurrentVolume, CurrentVolume)' for L/R ch.
-
+  Muses.setVolume(CurrentVolume, CurrentVolume);
   delay(10);
 }
 
@@ -50,7 +43,7 @@ void loop()
 
 ## Problems
 
-Please post any problems on the [Issues](https://github.com/qhris/Muses72320/issues) page.
+Please post any problems on the [Issues](https://github.com/GeoffWebster/Muses72323) page.
 
 ## License
 
