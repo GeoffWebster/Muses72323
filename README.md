@@ -1,6 +1,12 @@
 # Muses 72323
 
 Arduino library for communicating with the Muses 72323 audio chip.
+Library is based on MUSES72320 library originally created by Christoffer Hjalmarsson.
+Changes include:
+* Increase clock speed to align with MUSES72323 data sheet of 1MHz (- 200KHz margin)
+* Amendment of volume_to_attenuation routine to align with MUSES72323 settings
+* Implement setGain function to provide option to adjust gain section between 0dB and +21dB in 3dB steps
+
 The data sheets can be found [here](https://www.nisshinbo-microdevices.co.jp/en/pdf/datasheet/MUSES72323_E.pdf) (pdf).
 
 ## Example
