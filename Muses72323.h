@@ -20,6 +20,12 @@
   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+/*
+  Amended 2024 Geoff Webster
+
+  1. Clock speed amended to align with data sheet limits (1MHz) + safety margin. Clock speed now set to 800KHz
+  2. setGain routine now impemented so that gain may be set between 0dB (default gain) and +21dB in 3dB steps.
+*/
 
 #ifndef INCLUDED_MUSES_72323
 #define INCLUDED_MUSES_72323
