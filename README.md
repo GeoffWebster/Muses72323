@@ -20,11 +20,11 @@ void setup()
   Muses.begin();
 
   // Muses initially starts in a muted state, set a volume to enable sound.
-  Muses.setVolume(CurrentVolume);
+  Muses.setVolume(CurrentVolume,CurrentVolume);
 
   // These are the default states and could be removed...
   Muses.setZeroCrossing(true);     // Enable/Disable zero crossing.
-  Muses.setAttenuationLink(false); // Left channel controls both L/R gain channel.
+  Muses.setAttenuationLink(false); // Channel controls independant L/R attenuation channel.
 }
 
 void loop()
