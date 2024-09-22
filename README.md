@@ -1,4 +1,4 @@
-# Muses 72320
+# Muses 72323
 
 Arduino library for communicating with the Muses 72323 audio chip.
 The data sheets can be found [here](https://www.nisshinbo-microdevices.co.jp/en/pdf/datasheet/MUSES72323_E.pdf) (pdf).
