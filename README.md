@@ -43,11 +43,11 @@ void loop()
 
   Muses.setVolume(CurrentVolume, CurrentVolume);
   delay(10);
-	for (boost = 0; boost <= 7; boost++)
-	{
-		Muses.setGain(boost);
-		delay(5000);
-	}
+  for (boost = 0; boost <= 7; boost++)
+  {
+	Muses.setGain(boost);
+	delay(5000);
+  }
 }
 
 ```
