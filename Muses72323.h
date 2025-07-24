@@ -32,8 +32,6 @@
 //#define Muses72323_PIN_ERROR                0x81
 //#define Muses72323_SPI_ERROR                0x82
 #define Muses72323_VALUE_ERROR              0x83
-//#define Muses72323_PORT_ERROR               0x84
-//#define Muses72323_REGISTER_ERROR           0xFF
 
 #ifndef __SPI_CLASS__
   #if defined(ARDUINO_ARCH_RP2040)
@@ -63,8 +61,7 @@ public:
   
   // set the pins in their correct states
   bool begin();
-  bool begin(uint8_t sclk, uint8_t miso, uint8_t mosi, uint8_t select);
-
+  
   // set the volume using the following formula:
   // (-0.25 * volume) db
   // audio level goes from -111.75 to 0.0 dB

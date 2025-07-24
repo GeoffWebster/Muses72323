@@ -2,6 +2,7 @@
   The MIT License (MIT)
 
   Copyright (c) 2016 Christoffer Hjalmarsson
+  Copyright (c) 2025 Geoff Webster
 
   Permission is hereby granted, free of charge, to any person obtaining a copy of
   this software and associated documentation files (the "Software"), to deal in
@@ -113,11 +114,11 @@ bool Self::begin()
   }
   else
   {
-    ::pinMode(_mosi,  OUTPUT);
-    ::pinMode(_miso, INPUT);
-    ::pinMode(_sclk,   OUTPUT);
-    ::digitalWrite(_mosi, LOW);
-    ::digitalWrite(_sclk,   LOW);
+    pinMode(_mosi,  OUTPUT);
+    pinMode(_miso, INPUT);
+    pinMode(_sclk,   OUTPUT);
+    digitalWrite(_mosi, LOW);
+    digitalWrite(_sclk,   LOW);
   }
   return true;
 }
@@ -141,7 +142,6 @@ uint8_t Self::setGain(data_t intgain)
     _error = Muses72323_VALUE_ERROR;
     return false;
   }
-  // gain = (intgain * 4096) + (intgain * 512)
   gain = (intgain << 12) | (intgain << 9);
   bitWrite(gain, s_state_bit_zero_crossing, false);
   transfer(s_control_gain, gain);
@@ -180,33 +180,6 @@ void Self::transfer(address_t s_control_address, data_t data)
   word tmp;
   tmp = s_control_address | _chip_address;
   tmp = tmp | data;
-
-  // for debug
-  /*
-  for (int i = 15; i>=0;i--) {
-   Serial.print(bitRead(_chip_address,i));
-  if (i==7) Serial.print(" ");
-  }
-  Serial.print("\t");
-
-  for (int i = 15; i>=0;i--) {
-  Serial.print(bitRead(reg,i));
-  if (i==7) Serial.print(" ");
-  }
-  Serial.print("\t");
-
-  for (int i = 15; i>=0;i--) {
-  Serial.print(bitRead(data,i));
-  if (i==7) Serial.print(" ");
-  }
-  Serial.print("\t");
-
-  for (int i = 15; i>=0;i--)  {
-  Serial.print(bitRead(tmp,i));
-  if (i==7) Serial.print(" ");
-  }
-  Serial.print("\n");
-  */
   digitalWrite(_select, LOW);
   if (_hwSPI)
   {
@@ -233,10 +206,10 @@ uint8_t  Self::swSPI_transfer(uint8_t value)
   uint8_t rv = 0;
   for (uint8_t mask = 0x80; mask > 0; mask >>= 1)
   {
-    ::digitalWrite(dao, (value & mask) ? HIGH : LOW);
-    ::digitalWrite(clk, HIGH);
+    digitalWrite(dao, (value & mask) ? HIGH : LOW);
+    digitalWrite(clk, HIGH);
     if (::digitalRead(dai) == HIGH) rv |= mask;
-    ::digitalWrite(clk, LOW);
+    digitalWrite(clk, LOW);
   }
   return rv;
 }
