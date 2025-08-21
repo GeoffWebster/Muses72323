@@ -200,8 +200,8 @@ void Self::transfer(address_t s_control_address, data_t data)
 uint8_t  Self::swSPI_transfer(uint8_t value)
 {
   uint8_t clk = _sclk;
-  uint8_t dao = _miso;
-  uint8_t dai = _mosi;
+  uint8_t dao = _mosi;
+  uint8_t dai = _miso;
 
   uint8_t rv = 0;
   for (uint8_t mask = 0x80; mask > 0; mask >>= 1)
