@@ -17,6 +17,15 @@ The data sheets can be found [here](https://www.nisshinbo-microdevices.co.jp/en/
 #include <Arduino.h>
 #include "Muses72323.h" // Hardware-specific library
 #include <SPI.h> // Include SPI library for SPIClass
+
+/*
+***********************************************************************************************************************************
+*  Shown below is how to implement controls for seperate MUSES72323 in left and right channels as in a fully balanced preamplifier.
+*  For most implementations, only one MUSES72323 is required to control both left and right channels.
+*  An example is shown for each of the three options for construction.
+***********************************************************************************************************************************
+*/
+
 // define Muses72323 custom SPI pins
 #define MUSES_SCLK 18
 #define MUSES_MISO 19
