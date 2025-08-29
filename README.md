@@ -6,6 +6,8 @@ Changes include:
 * Increase clock speed to align with MUSES72323 data sheet of 1MHz (- 200KHz margin)
 * Amendment of volume_to_attenuation routine to align with MUSES72323 settings
 * Implement setGain function to provide option to adjust gain section between 0dB and +21dB in 3dB steps
+* Amendment of hardware and software constructs plus software transfer to provide support to running more than one MUSES72323 seperately (as for use within a fully balanced preamplifier)
+* Example amended to show each method for creating software SPI, hardware SPI with default chip address and hardware SPI with custon address.
 
 The data sheets can be found [here](https://www.nisshinbo-microdevices.co.jp/en/pdf/datasheet/MUSES72323_E.pdf) (pdf).
 
