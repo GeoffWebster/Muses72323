@@ -12,42 +12,45 @@ The data sheets can be found [here](https://www.nisshinbo-microdevices.co.jp/en/
 ## Example
 
 ```c++
-#include <Muses72323.h>
-
-// The address wired into the muses chip (usually 0).
-static const byte MUSES_ADDRESS = 0;
-
-static Muses72323 Muses(MUSES_ADDRESS);
-static Muses72323::volume_t CurrentVolume = -20;
-
+#include <Arduino.h>
+#include "Muses72323.h" // Hardware-specific library
+#include <SPI.h> // Include SPI library for SPIClass
+// define Muses72323 custom SPI pins
+#define MUSES_SCLK 18
+#define MUSES_MISO 19
+#define MUSES_MOSI 23
+#define MUSES_SELECT_L 16
+#define MUSES_SELECT_R 17
+// define Muses72323 hardware SPI pins
+#define MUSES_HARDWARE_SELECT_L 16 // Hardware SPI select pin for left channel
+#define MUSES_HARDWARE_SELECT_R 17 // Hardware SPI select pin for right channel
+#define MUSES_ADDRESS 0x00 // Default chip address for Muses72323
+// preAmp constructs
+// Using software SPI
+//Muses72323 Muses_L(MUSES_SCLK, MUSES_MISO, MUSES_MOSI, MUSES_SELECT_L, MUSES_ADDRESS); // Using software SPI
+//Muses72323 Muses_R(MUSES_SCLK, MUSES_MISO, MUSES_MOSI, MUSES_SELECT_R, MUSES_ADDRESS); // Using software SPI
+// Using hardware SPI
+Muses72323 Muses_L(MUSES_HARDWARE_SELECT_L, &SPI); // Using hardware SPI and default address
+Muses72323 Muses_R(MUSES_HARDWARE_SELECT_R, MUSES_ADDRESS, &SPI); // Using hardware SPI and custom address
 void setup()
 {
-  // Initialize muses (SPI, pin modes)...
-  Muses.begin();
-
-  // Muses initially starts in a muted state, set a volume to enable sound.
-  Muses.setVolume(CurrentVolume,CurrentVolume);
-
-  // These are the default states and could be removed...
-  Muses.setZeroCrossing(true);     // Enable/Disable zero crossing.
-  Muses.setAttenuationLink(false); // Channel controls independant L/R attenuation channel.
+Serial.begin(115200);
+// Initialize Muses chips
+Muses_R.begin();
+Muses_L.begin();
+// Configure Muses chips
+Muses_L.setExternalClock(false); // must be set!
+Muses_R.setExternalClock(false); // must be set!
+Muses_L.setZeroCrossingOn(true);
+Muses_R.setZeroCrossingOn(true);
 }
-
 void loop()
 {
-  CurrentVolume -= 1;
-  if (CurrentVolume < -447)
-  {
-    CurrentVolume = 0;
-  }
-
-  Muses.setVolume(CurrentVolume, CurrentVolume);
-  delay(10);
-  for (boost = 0; boost <= 7; boost++)
-  {
-	Muses.setGain(boost);
-	delay(5000);
-  }
+for (int volume = -447; volume < 0; volume++)
+{
+Muses_L.setVolume(volume, volume);
+Muses_R.setVolume(volume, volume);
+}
 }
 
 ```
